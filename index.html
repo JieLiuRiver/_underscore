@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="public/libs/jquery/dist/jquery.min.js"></script>
+	<script src="public/libs/underscore/underscore.js"></script>
+</head>
+<body>
+	<script>
+	$(document).ready(function(){
+		var arr01 = ['A','B','C'];
+		var obj01 = { name : "jack", age : "27", sex : "man" };
+		
+//each----数组
+		_.each(arr01, function(item,index,arr){
+			console.log(item);
+		});
+
+		//each----对象
+		_.each(obj01, function(value,attr,obj01){
+			console.log('obj01_value',value);
+			console.log('obj01_attr',attr);
+		})
+
+//_.map---改造数组、对象,产生新值
+		var arr02 = _.map(arr01,function(item){
+			return item+"+";
+		})
+		console.log("arr02",arr02);
+
+		var obj02 = _.map(obj01, function(item,attr){
+			console.log(attr);
+			if( attr == 'age' ){
+				return Number(item)-1;
+			}else{
+				return item;
+			}
+		})
+		console.log('obj02',obj02);
+
+//_.find   在数组中，找到第一个满足条件的值
+		var valueFind = _.find(arr01, function(item){
+			return item == 'C';
+		})
+		console.log('valueFind',valueFind);
+		
+
+
+//_.filter 过滤数组，返回满足条件的每一个
+		var arr03 = [1,2,3,4,5,6,7]
+		var filterArr = _.filter(arr03, function(num){
+			return num%2 == 0;
+		})
+		console.log('filterArr',filterArr);
+
+		//注释： _.reject跟_.filter相反，返回的是不满足条件的每一项。
+
+
+
+//_.where  一个数组，数组里多个对象，我要找出其中几个满足{flag : 1}条件的对象
+		var arr04 = [
+			{
+				name : "数据",
+				flag  : 1
+			},
+			{
+				name : "撒地方",
+				flag  : 2
+			},
+			{
+				name : "个人简介",
+				flag  : 1
+			},
+			{
+				name : "俄方刚刚",
+				flag  : 2
+			},
+			{
+				name : "额各位",
+				flag  : 2
+			},
+			{
+				name : "能体会",
+				flag  : 1
+			}
+		]
+		var whereArr = _.where(arr04,{ flag : 1 });
+		console.log('whereArr', whereArr);
+
+//_.pluck   我有一个数组，数组里很多对象，我只要所有对象里name属性名的属性值，组成数组返回给我
+		var pluckArr = _.pluck(arr04, 'name');
+		console.log('pluckArr', pluckArr);
+
+
+
+//_.max   我有一个数组，数组里很多对象，我只要所有对象里age属性的最大值，把对应的对象返回给我
+		var arr05 = [
+			{
+				name : "jack",
+				age : "16"
+			},
+			{
+				name : "rose",
+				age : "21"
+			},
+			{
+				name : "Milik",
+				age : "33"
+			},
+			{
+				name : "Dfe",
+				age : "47"
+			},
+			{
+				name : "Gefe",
+				age : "56"
+			},
+		]
+		var arr06 = ['23','535','45','656']
+		var maxObj = _.max(arr05, function(arr05){
+			return arr05.age;
+		});
+		var maxValue = _.max(arr06)
+		console.log( 'maxObj', maxObj );
+		console.log( 'maxValue', maxValue );
+
+		//注释： _.min同理
+		
+
+//_.shuffle  数组，随机排
+		var shuffleArr = _.shuffle([1,2,3,4,5,6,7])
+		console.log('shuffleArr',shuffleArr);
+
+// _.sample   数组中，随机取一个值
+		var sampleValue = _.sample([1,2,3,4,5,6,7]);
+		var sampleValue2 = _.sample([1,2,3,4,5,6,7], 2);
+		console.log('sampleValue',sampleValue);
+		console.log('sampleValue2',sampleValue2);
+
+
+//_.toArray  转换为数组， 方便arguments转数组
+		var arrtoArr = (function(){
+			return _.toArray(arguments)
+		})(1,3,4,5,6)
+		console.log('arrtoArr',arrtoArr);
+
+//_.size  返回一个对象下面，有多少个属性
+		var len = _.size({ 
+			name : "jack",
+			age : 26,
+			sex : "man"
+		})
+		console.log('len',len);
+
+// _.first  返回数组的第1个元素
+		var firstValue = _.first([2,3,6,67,7]);
+		console.log('firstValue:',firstValue);
+
+		//注释，_.last 最后一个
+		
+
+//_.rest  返回除了第一个元素的其他所有元素
+		var restArr = _.rest([1,2,3,4,5]);
+		console.log('restArr',restArr);
+
+
+//_.compact  返回一个除去所有false值的 array副本    在javascript中, false, null, 0, "", undefined 和 NaN 都是false值
+		var compactArr = _.compact([0, 1, false, 2, '', 3,null,undefined,NaN]);
+		console.log('compactArr',compactArr);
+
+//_.uniq  返回去重复之后的数组
+		var uniqArr =  _.uniq([1, 2, 1, 3, 1, 4]);
+		console.log('uniqArr',uniqArr);
+
+//_.range  创建数组
+		_.range(10);
+		// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+		_.range(1, 11);
+		// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+		_.range(0, 30, 5);
+		// [0, 5, 10, 15, 20, 25]
+		_.range(0, -10, -1);
+		// [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+
+
+// _.bind  有一个函数，有一个对象{}，我要把函数绑定到此对象上，再调用函数
+		var fn01 = function(str){
+			return str + " : " + this.name 
+		}
+		fn01 = _.bind( fn01,{name : "jack"}, 'Welcome' );
+		console.log('fn01',fn01());
+
+//_.delay  等待多久才执行函数
+		_.delay(function(){
+			console.log('等待2秒后打印');
+		},2000)
+
+	})
+	</script>
+</body>
+</html>
