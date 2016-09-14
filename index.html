@@ -196,6 +196,186 @@
 			console.log('等待2秒后打印');
 		},2000)
 
+
+
+		/*
+			_.throttle  函数节流
+
+			控制触发频率比较高的事件。
+			当重复调用函数的时候，至少隔wait秒再调用。
+			
+			var throttled = _.throttle(updatePosition, 100);
+			$(window).scroll( throttled );
+
+		 */
+
+
+		 /*
+		 	_.once  创建一个只能调用一次的函数
+		 	
+		 	只会返回第一次执行时的结果。
+			作为初始化函数使用，非常有用，
+			不用再设一个boolean值来检查是否已经完成初始化。
+
+			var initialize = _.once(fn1);
+			initialize();  
+			initialize();  
+			//只会调用一次
+				
+		  */
+		 
+
+		  /*=========================*/
+		  /*  		对象函数
+		  /*=========================*/
+		 
+		 /*
+		 	① 想检索，object拥有的所有的，属性名称
+		 		_.keys({
+					one :1,
+					tow : 2,
+					three :3
+		 		});
+		 		=> ['one','tow','three']
+			
+			②	检索object自身拥有的属性名称，继承过来的属性名称
+
+				function Stooge(name){
+					this.name = name;
+				}
+				Stooge.prototype.silly = true;
+
+				_.allKeys( new Stooge('jack') );
+				=> ['name','silly']
+
+			
+			③	把一个对象转换为一个[key,value]形式的数组
+
+				_.pairs({
+						one : 1,
+						two : 2,
+						three : 3
+				});
+				=> [ ['one',1], ['two',2], ['three',3] ]
+
+
+			④	返回一个对象里所有的方法名
+
+				_.functions(_);
+				=>['all','any','bind',.....]
+
+
+			⑤	复制对象
+
+				_.extend({name:'jack'},{age,'26'});
+				=> {name :"jack",age : 26}
+
+
+			⑥	对一个对象里的属性，过滤取属性
+
+				_.pick({
+					name : 'jack',
+					age : 26,
+					user : 'admin'
+				},'name','age');
+				=> {name : 'jack',age : 26}
+				
+				_.pick({
+					name : "jack",
+					age : 26,
+					user : "admin"
+				}, function(value, key, object){
+						return _.isNumber(value);
+				});
+				=> {age:26}
+
+
+				_.omit({
+					name : "jack",
+					age : 26,
+					user : "admin"
+				}, function(value, key, object){
+					return _.isNumber(value);
+				});
+				=> {name:"jack", user:"admin"}
+
+
+			⑦	浅拷贝 存在引用关系
+				_.clone({name:"jack"});
+				=> {name:"jack"}
+		  	
+			
+			⑧	对象是否包含给定的键
+				等同于{1,}，就是1到正无穷吧。object.hasOwnProperty(key)
+
+				_.has({
+					a:1,
+					b:2,
+					c:3
+				}, "b");
+				=> true
+
+			
+			⑨  对象没有属性，返回true
+				数组，字符串长度为0，返回true
+				_.isEmpty( object );
+				
+			
+			⑩ 如果是一个dom元素，返回true
+				_.isElement( object );
+
+			
+			11. 如果是一个数组，返回true
+				_.isObject( obj );
+
+			
+			12.	如果是一个函数，返回true
+				_.isFunction( object );
+
+			13. 如果是一个字符串，返回true
+				_.isString( object );
+			
+			14. 如果是一个数字，返回true
+				_.isNumber( object );
+
+			15. 如果是一个布尔值，返回true
+				_.isBoolean(object) 
+
+			16. 如果是NaN，返回true
+			这和原生的isNaN 函数不一样，如果变量是undefined，原生的isNaN 函数也会返回 true 。
+				_.isNaN(NaN);
+				=> true
+				isNaN(undefined);
+				=> true
+				_.isNaN(undefined);
+				=> false
+			
+		
+			17. 如果object的值是 null，返回true。
+				_.isNull(null);
+				=> true
+				_.isNull(undefined);
+				=> false
+
+			18.	如果value是undefined，返回true。
+				_.isUndefined(value) 
+			
+			
+
+	实用功能：
+		
+		① 返回一个min 和 max之间的随机整数
+			_.random(0, 100);	
+		
+		
+		②	转义HTML字符串，替换&, <, >, ", ', 和 /字符。
+				_.escape('Curly, Larry & Moe');
+				=> "Curly, Larry &amp; Moe"
+
+				_.unescape('Curly, Larry &amp; Moe');
+				=> "Curly, Larry & Moe"
+
+
 	})
 	</script>
 </body>
